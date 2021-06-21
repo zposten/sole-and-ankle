@@ -13,6 +13,7 @@ const ShoeCard = ({
   salePrice,
   releaseDate,
   numOfColors,
+  ...rest
 }) => {
   // There are 3 variants possible, based on the props:
   //   - new-release
@@ -32,7 +33,7 @@ const ShoeCard = ({
       : 'default'
 
   return (
-    <Link href={`/shoe/${slug}`}>
+    <RootLink {...rest} href={`/shoe/${slug}`}>
       <Wrapper>
         <ImageWrapper>
           <Image alt='' src={imageSrc} />
@@ -46,11 +47,11 @@ const ShoeCard = ({
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
         </Row>
       </Wrapper>
-    </Link>
+    </RootLink>
   )
 }
 
-const Link = styled.a`
+const RootLink = styled.a`
   text-decoration: none;
   color: inherit;
 `
@@ -61,7 +62,9 @@ const ImageWrapper = styled.div`
   position: relative;
 `
 
-const Image = styled.img``
+const Image = styled.img`
+  width: 100%;
+`
 
 const Row = styled.div`
   font-size: 1rem;
