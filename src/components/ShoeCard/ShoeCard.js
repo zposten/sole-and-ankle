@@ -32,6 +32,10 @@ const ShoeCard = ({
       ? 'new-release'
       : 'default'
 
+  const isOnSale = variant === 'on-sale'
+  const saleColor = isOnSale ? COLORS.secondary : COLORS.primary
+  const saleText = isOnSale ? 'Sale!' : 'Just released!'
+
   return (
     <RootLink {...rest} href={`/shoe/${slug}`}>
       <Wrapper>
@@ -47,6 +51,16 @@ const ShoeCard = ({
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
         </Row>
       </Wrapper>
+
+      {variant !== 'default' && (
+        <SalePrice
+          style={{
+            '--bg': saleColor,
+          }}
+        >
+          {saleText}
+        </SalePrice>
+      )}
     </RootLink>
   )
 }
@@ -54,6 +68,7 @@ const ShoeCard = ({
 const RootLink = styled.a`
   text-decoration: none;
   color: inherit;
+  position: relative;
 `
 
 const Wrapper = styled.article``
@@ -68,6 +83,8 @@ const Image = styled.img`
 
 const Row = styled.div`
   font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
 `
 
 const Name = styled.h3`
@@ -83,7 +100,13 @@ const ColorInfo = styled.p`
 
 const SalePrice = styled.span`
   font-weight: ${WEIGHTS.medium};
-  color: ${COLORS.primary};
+  color: white;
+  background: var(--bg);
+  padding: 0.5rem;
+
+  position: absolute;
+  top: 0.5rem;
+  right: -0.5rem;
 `
 
 export default ShoeCard
